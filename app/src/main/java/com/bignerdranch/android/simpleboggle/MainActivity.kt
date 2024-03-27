@@ -2,6 +2,7 @@ package com.bignerdranch.android.simpleboggle
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var buttons: List<Button>
+    private lateinit var userInputTextView: TextView
     private val vowels = listOf('A', 'E', 'I', 'O', 'U')
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +24,26 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.button9), findViewById(R.id.button10), findViewById(R.id.button11), findViewById(R.id.button12),
             findViewById(R.id.button13), findViewById(R.id.button14), findViewById(R.id.button15), findViewById(R.id.button16)
         )
+
+        // Initialize User Input TextView
+        userInputTextView = findViewById(R.id.userInputTextView)
+
+        for (button in buttons) {
+            button.setOnClickListener {
+                val buttonText = (it as Button).text
+                if (userInputTextView.text == "User Input") {
+                    userInputTextView.text = ""
+                }
+                userInputTextView.text = userInputTextView.text.toString() + buttonText
+            }
+        }
+
+        // Set onClickListener for clear button
+        val clearButton = findViewById<Button>(R.id.clear_button)
+        clearButton.setOnClickListener {
+            userInputTextView.text = "User Input"
+        }
+
 
         initializeButtons()
     }
@@ -37,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         val letters = mutableListOf<Char>()
         val alphabet = ('A'..'Z').toList()
 
-        // Add at least three vowels
+
         val vowelsToAdd = 3
         val chosenVowels = mutableListOf<Char>()
 
@@ -47,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             letters.add(vowel)
         }
 
-        // Fill the rest of the buttons with random consonants
+
         repeat(16 - vowelsToAdd) {
             val consonants = (alphabet - vowels).toList()
             val consonant = consonants.random()
@@ -61,5 +83,4 @@ class MainActivity : AppCompatActivity() {
         initializeButtons()
     }
 
-    // Implement other button click handlers as needed
 }
