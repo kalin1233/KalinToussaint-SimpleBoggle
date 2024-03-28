@@ -1,8 +1,11 @@
 package com.bignerdranch.android.simpleboggle
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
@@ -10,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var buttons: List<Button>
+    private val usedButtons = mutableListOf<Button>()
+    private val originalButtonBackgrounds = mutableMapOf<Button, Drawable?>()
     private lateinit var userInputTextView: TextView
     private val vowels = listOf('A', 'E', 'I', 'O', 'U')
 
@@ -29,12 +34,22 @@ class MainActivity : AppCompatActivity() {
         userInputTextView = findViewById(R.id.userInputTextView)
 
         for (button in buttons) {
+            // Store original background drawable of each button
+            originalButtonBackgrounds[button] = button.background
+
             button.setOnClickListener {
                 val buttonText = (it as Button).text
                 if (userInputTextView.text == "User Input") {
                     userInputTextView.text = ""
                 }
-                userInputTextView.text = userInputTextView.text.toString() + buttonText
+                if (button !in usedButtons) {
+                    userInputTextView.text = userInputTextView.text.toString() + buttonText
+                    usedButtons.add(button)
+                    button.isEnabled = false
+                    button.setBackgroundColor(Color.GRAY)
+                } else {
+                    Toast.makeText(this, "This letter has been used. Pick another letter.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -42,6 +57,12 @@ class MainActivity : AppCompatActivity() {
         val clearButton = findViewById<Button>(R.id.clear_button)
         clearButton.setOnClickListener {
             userInputTextView.text = "User Input"
+            usedButtons.clear()
+            for (button in buttons) {
+                button.isEnabled = true
+                // Restore original background drawable
+                button.background = originalButtonBackgrounds[button]
+            }
         }
 
 

@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="#000000">
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/instructionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter a word then hit submit"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"
@@ -28,7 +28,6 @@
         android:alignmentMode="alignMargins"
         android:columnOrderPreserved="false"
         android:layout_marginBottom="8dp"
-        android:background="#FFFFFF"
         android:layout_margin="8dp"
         android:clipToPadding="false"
         android:clipChildren="false">
@@ -285,8 +284,7 @@
         android:layout_gravity="center_horizontal"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"
-        android:padding="8dp"
-        android:background="#FFFFFF"/>
+        android:padding="8dp" />
 
     <TextView
         android:id="@+id/scoreTextView"
@@ -294,7 +292,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Score: "
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="16sp" />
 
 </LinearLayout>
